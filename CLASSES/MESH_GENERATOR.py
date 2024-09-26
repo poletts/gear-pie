@@ -75,7 +75,7 @@ class MESHING:
         elif DIM_MESH=='2D':
             zv = 0
         PC = model.geo.addPoint(0, 0, zv)
-        # involiute
+        # involute
         PIl, PIr = [], []
         for i in range(len(PROFILE.XinvT)):
             PIl.append(geog.addPoint(PROFILE.XinvT[i], PROFILE.YinvT[i], zv))
