@@ -20,6 +20,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. '''
 
+import json
+import tkinter as tk
+from tkinter import filedialog
 
 class GEAR:
     """Library with gear geometries and input prompt for new gear geometries"""
@@ -56,6 +59,39 @@ class GEAR:
                    float(input('Rq2 (default: 0.7) / \u03BCm: ') or '0.7')]
         self.Rz = [float(input('Rz1 (default: 4.8) / \u03BCm: ') or '4.8'),
                    float(input('Rz2 (default: 4.8) / \u03BCm: ') or '4.8')]
+
+    def load_from_file(self):
+
+        root = tk.Tk()
+        root.withdraw()  # Hide the root window
+
+        filename = filedialog.askopenfilename(
+            title="Select JSON file",
+            filetypes=(("JSON files", "*.json"), ("All files", "*.*"))
+        )
+
+        if not filename:
+            raise ValueError("No file selected")
+
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        
+        self.GEAR_NAME = data['name']
+        self.alpha = data['pressure_angle']
+        self.beta = data['helix_angle']
+        self.m = data['module']
+        self.z = [data['pinion_teeth'], data['wheel_teeth']]
+        self.x = [data['pinion_profile_shift'], data['wheel_profile_shift']]
+        self.addendum_reduction = data['addendum_reduction_factor']
+        self.b = [data['pinion_facewidth'], data['wheel_facewidth']]
+        self.dshaft = [data['pinion_shaft_diameter'], data['wheel_shaft_diameter']]
+        self.al = None
+        self.haP = data['addendum_coefficient']
+        self.hfP = data['dedendum_coefficient']
+        self.rfP = data['root_radius_coefficient']
+        self.Ra = [data['pinion_ra'], data['wheel_ra']]
+        self.Rq = [data['pinion_rq'], data['wheel_rq']]
+        self.Rz = [data['pinion_rz'], data['wheel_rz']]
 
     def C14(self):
         self.GEAR_NAME = 'C14'

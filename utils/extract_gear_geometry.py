@@ -14,7 +14,7 @@ from CLASSES import (GEAR_LIBRARY, MATERIAL_LIBRARY, LUBRICANT_LIBRARY,
                      VDI2736, MESH_GENERATOR, OUTPUT_PRINT, PLOTTING)
 
 # Load gear
-gear_type='C14'
+gear_type='load_from_file'
 gear = GEAR_LIBRARY.GEAR(gear_type)
 
 # Gear geometry calculation
@@ -33,7 +33,7 @@ ax.plot(Pprofile.xGEO, Pprofile.yGEO, label='Pinion')
 plt.show()
 
 # Save profile to csv
-data = [-Pprofile.xGEO, Pprofile.xGEO]
-data = np.array(data).T
+# data = [-Pprofile.xGEO, Pprofile.xGEO]
+# data = np.array(data).T
 # np.savetxt('C14_pinion_tooth_profile.csv', data, delimiter=',')
-np.savetxt('./data/C14_pinion_tooth_profile.csv', data, delimiter=',')
+# np.savetxt('./data/C14_pinion_tooth_profile.csv', data, delimiter=',')
